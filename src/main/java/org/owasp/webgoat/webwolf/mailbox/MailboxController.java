@@ -21,6 +21,10 @@
  */
 
 package org.owasp.webgoat.webwolf.mailbox;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -57,11 +61,15 @@ public class MailboxController {
     return modelAndView;
   }
 
-  @PostMapping("/mail")
-  @ResponseStatus(HttpStatus.CREATED)
-  public void sendEmail(@RequestBody Email email) {
+@PostMapping("/mail")
+@ResponseStatus(HttpStatus.CREATED)
+public void sendEmail(@RequestBody EmailDTO emailDTO) {
+    Email email = new Email();
+    email.setRecipient(emailDTO.getTo()); 
+    email.setTitle(emailDTO.getSubject());
+    email.setContents(emailDTO.getContent());
     mailboxRepository.save(email);
-  }
+}
 
   @DeleteMapping("/mail")
   @ResponseStatus(HttpStatus.ACCEPTED)
