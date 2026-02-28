@@ -65,9 +65,9 @@ public class MailboxController {
 @ResponseStatus(HttpStatus.CREATED)
 public void sendEmail(@RequestBody EmailDTO emailDTO) {
     Email email = new Email();
-    email.setTo(emailDTO.getTo());
-    email.setSubject(emailDTO.getSubject());
-    email.setContent(emailDTO.getContent());
+    email.setRecipient(emailDTO.getTo()); 
+    email.setTitle(emailDTO.getSubject());
+    email.setContents(emailDTO.getContent());
     mailboxRepository.save(email);
 }
 
