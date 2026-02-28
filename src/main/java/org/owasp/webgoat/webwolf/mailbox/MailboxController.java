@@ -64,15 +64,10 @@ public class MailboxController {
 @PostMapping("/mail")
 @ResponseStatus(HttpStatus.CREATED)
 public void sendEmail(@RequestBody EmailDTO emailDTO) {
-    // 1. Creamos un objeto Email vacío (el de la base de datos)
     Email email = new Email();
-    
-    // 2. Copiamos los datos del DTO (lo que viene de internet) al objeto real
     email.setTo(emailDTO.getTo());
     email.setSubject(emailDTO.getSubject());
     email.setContent(emailDTO.getContent());
-    
-    // 3. Guardamos el objeto real, que ahora solo tiene los datos que permitimos
     mailboxRepository.save(email);
 }
 
