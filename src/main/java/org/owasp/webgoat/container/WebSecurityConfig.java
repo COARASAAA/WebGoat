@@ -7,7 +7,7 @@
  *
  * <p>This program is free software; you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation; either version 2 of the
- * License, or (at your option) any later version.
+ * License, or (at your option) any   later version.
  *
  * <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -30,6 +30,7 @@
  */
 package org.owasp.webgoat.container;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import lombok.AllArgsConstructor;
 import org.owasp.webgoat.container.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,10 +100,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected AuthenticationManager authenticationManager() throws Exception {
     return super.authenticationManager();
   }
-
-  @SuppressWarnings("deprecation")
-  @Bean
-  public NoOpPasswordEncoder passwordEncoder() {
-    return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+@Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
   }
+
 }
